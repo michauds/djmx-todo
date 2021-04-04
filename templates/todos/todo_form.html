@@ -1,0 +1,17 @@
+<form id="todo-create-form"
+      hx-post="{% url 'todos-create' %}"
+      hx-target="#todo-list">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit">
+</form>
+
+
+<script>
+    document.body.addEventListener('htmx:afterSwap', function(evt) {
+        if (evt.detail.pathInfo.path.includes('create')
+            && evt.detail.xhr.status === 200) {
+            document.getElementById('todo-create-form').reset();
+        }
+    });
+</script>

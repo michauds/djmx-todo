@@ -1,0 +1,7 @@
+<ul>
+    {% for item in object_list %}
+        {% include "todos/todo_item.html" %}
+    {% empty %}
+        <li>No todos have been added yet.</li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,28 @@
+<li id="todo-item-{{ item.id }}">
+    <form>
+    {{ form.non_field_errors }}
+    {% csrf_token %}
+
+    <input type="text"
+           hx-post="{% url 'edit-todo' item.id %}"
+           hx-trigger="keyup changed delay:500ms"
+           name="name"
+           value="{{ item.name }}">
+    -
+    <input type="checkbox"
+           name="done"
+           hx-post="{% url 'edit-todo' item.id %}"
+           {% if item.done %}checked{% endif %}/>
+
+    <!--
+    Version 1 - doesn't handle empty list text
+
+    <button hx-post="{% url 'delete-todo' item.id %}"
+            hx-target="#todo-item-{{ item.id }}"
+            hx-swap="outerHTML">X</button> -->
+
+    <!-- Version 2 - shows empty list text -->
+    <button hx-post="{% url 'delete-todo' item.id %}"
+            hx-target="#todo-list">X</button>
+    </form>
+</li>
